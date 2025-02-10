@@ -473,7 +473,7 @@ void Simulation::updateSpringForces(dVec& spring_force_arr) const {
  */
 void Simulation::updatePhysicalForces(dVec& physical_force_arr) const {
     // Calculate the external forces acting on the particles
-    physical_force_arr = (-1.0) * ext_potential->gradV(coord);
+    physical_force_arr = (-1.0) * ext_potential->getGradV(coord);
 
     if (int_pot_cutoff != 0.0) {
         for (int ptcl_one = 0; ptcl_one < natoms; ++ptcl_one) {
@@ -488,7 +488,7 @@ void Simulation::updatePhysicalForces(dVec& physical_force_arr) const {
                 // We use the convention that when cutoff < 0 then the interaction is
                 // calculated for all distances.
                 if (const double distance = diff.norm(); distance < int_pot_cutoff || int_pot_cutoff < 0.0) {
-                    dVec force_on_one = (-1.0) * int_potential->gradV(diff);
+                    dVec force_on_one = (-1.0) * int_potential->getGradV(diff);
 
                     for (int axis = 0; axis < NDIM; ++axis) {
                         physical_force_arr(ptcl_one, axis) += force_on_one(0, axis);

@@ -171,11 +171,11 @@ void EnergyObservable::calculatePotential() {
     double ext_pot = 0.0;    // Potential energy due to external field
 
     if (sim.external_potential_name != "free") {
-        ext_pot = sim.ext_potential->V(sim.coord);
+        ext_pot = sim.ext_potential->getV(sim.coord);
         potential += ext_pot;
 
         dVec physical_forces(sim.natoms);
-        physical_forces = (-1.0) * sim.ext_potential->gradV(sim.coord);
+        physical_forces = (-1.0) * sim.ext_potential->getGradV(sim.coord);
 
         for (int ptcl_idx = 0; ptcl_idx < sim.natoms; ++ptcl_idx) {
             for (int axis = 0; axis < NDIM; ++axis) {
@@ -190,9 +190,9 @@ void EnergyObservable::calculatePotential() {
                 dVec diff = sim.getSeparation(ptcl_one, ptcl_two, MINIM);  // Vectorial distance
 
                 if (const double distance = diff.norm(); distance < sim.int_pot_cutoff || sim.int_pot_cutoff < 0.0) {
-                    dVec force_on_one = (-1.0) * sim.int_potential->gradV(diff);
+                    dVec force_on_one = (-1.0) * sim.int_potential->getGradV(diff);
 
-                    double int_pot_val = sim.int_potential->V(diff);
+                    double int_pot_val = sim.int_potential->getV(diff);
                     potential += int_pot_val;
                     int_pot += int_pot_val;
 

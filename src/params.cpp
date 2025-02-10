@@ -204,6 +204,7 @@ Params::Params(const std::string& filename, const int& rank) : reader(filename) 
 
     interaction_pot["name"] = interaction_name;
     interaction_pot["cutoff"] = getQuantity("length", reader.Get(Sections::INT_POTENTIAL, "cutoff", "-1.0 angstrom"));
+    interaction_pot["contractedBeads"] = reader.GetInteger(Sections::INT_POTENTIAL, "contractedBeads", 0);
 
     if (interaction_name == "free") {
         // In the special case of free particles, the cutoff distance is set to zero
@@ -230,6 +231,7 @@ Params::Params(const std::string& filename, const int& rank) : reader(filename) 
                                                 external_name));
 
     external_pot["name"] = external_name;
+    external_pot["contractedBeads"] = reader.GetInteger(Sections::EXT_POTENTIAL, "contractedBeads", 0);
 
     if (external_name == "harmonic") {
         // In atomic units, the angular frequency of the oscillator has the same dimensions as the energy

@@ -8,6 +8,13 @@ public:
     Potential();
     virtual ~Potential() = default;
 
+    // Gives the potential
+    double getV(const dVec& x);
+
+    // Gives the potential gradient
+    dVec getGradV(const dVec& x);
+
+protected:
     // Potential
     virtual double V(const dVec& x) {
         return 0.0;
@@ -34,6 +41,7 @@ public:
     HarmonicPotential(double mass, double omega);
     ~HarmonicPotential() override = default;
 
+protected:
     // Potential
     double V(const dVec& x) override;
 
@@ -55,6 +63,7 @@ public:
     DoubleWellPotential(double mass, double strength, double loc);
     ~DoubleWellPotential() override = default;
 
+protected:
     // Potential
     double V(const dVec& x) override;
 
@@ -76,6 +85,7 @@ public:
     CosinePotential(double amplitude, double wavelength, double phase);
     ~CosinePotential() override = default;
 
+protected:
     // Potential
     double V(const dVec& x) override;
 
@@ -98,6 +108,7 @@ public:
     DipolePotential(double strength);
     ~DipolePotential() override = default;
 
+protected:
     // Potential
     double V(const dVec& x) override;
 
@@ -117,6 +128,7 @@ public:
     AzizPotential();
     ~AzizPotential() override = default;
 
+protected:
     // Potential
     double V(const dVec& x) override;
 

@@ -4,6 +4,14 @@
 
 Potential::Potential() : tailV(0.0) {}
 
+double Potential::getV(const dVec& x) {
+    return V(x);
+}
+
+dVec Potential::getGradV(const dVec& x) {
+    return gradV(x);
+}
+
 // Isotropic harmonic potential
 HarmonicPotential::HarmonicPotential(double mass, double omega) : mass(mass), omega(omega) {
     k = mass * omega * omega;
